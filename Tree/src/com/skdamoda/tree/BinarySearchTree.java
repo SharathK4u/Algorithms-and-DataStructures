@@ -1,5 +1,8 @@
 package com.skdamoda.tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Node{
 	int key;
 	Node left,right;
@@ -38,12 +41,34 @@ public class BinarySearchTree {
 		}
 	}
 	
-	public void printInOrder(Node root) {
-		if(root!=null) {
-		printInOrder(root.left);
-		System.out.println(root.key);
-		printInOrder(root.right);
-		}
+	List printInorder(Node root,List list){
+        if(root!=null){
+        	printInorder(root.left,list);
+            list.add(root.key);
+            printInorder(root.right,list);
+        }
+        return list;
+    }
+	
+	boolean checkBST(Node root) {
+        
+        List<Integer> list = new ArrayList<Integer>();
+        list=printInorder(root,list);
+        int temp=-1;
+        for(int i:list){
+            if(i<temp)
+                return false;
+            temp=i;        
+        }
+        return true;
+    }
+	
+	boolean checkBST2(Node node,Integer min,Integer max) {
+		if(node==null)
+			return true;
+		if(node.key>=min || node.key>=max)
+			return false;
+		return (checkBST2(node.left,min,node.key) && checkBST2(node.right,node.key,max)); 
 	}
 	
 	public boolean search(Node root,Node node) {
@@ -71,10 +96,12 @@ public class BinarySearchTree {
 		bst.insert(bst.root, new Node(7));
 		bst.insert(bst.root, new Node(3));
 		bst.insert(bst.root, new Node(4));
-		bst.printInOrder(bst.root);
+		List<Integer> list = new ArrayList<Integer>();
+		list=bst.printInorder(bst.root, list);
+		System.out.println("The Inorder list is "+ list);
 		int searchKey=11;
 		System.out.println("The value"+searchKey+" is present in the tree"+bst.search(bst.root, new Node(searchKey)));
-		
+		System.out.println("Check if this tree is BST "+ bst.checkBST(bst.root));
 	}
 	
 	

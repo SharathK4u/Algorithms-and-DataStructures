@@ -21,6 +21,7 @@ class Index
 	int index;
 }
 
+package com.skdamoda.tree;
 class BinaryTree 
 {
 	/* Recursive function to construct binary of size n
