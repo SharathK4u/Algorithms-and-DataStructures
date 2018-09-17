@@ -1,6 +1,7 @@
 package com.skdamoda.graph;
 
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class DFSGraph {
@@ -20,29 +21,23 @@ public class DFSGraph {
 	}
 	
 	private void printDFS(int s) {
-		boolean [] visited=new boolean [v];
-		boolean deadEnd=true;
-		for(int i=0;i<v;i++)
+		boolean [] visited = new boolean [v];
+		for(int i=0;i<v;i++) {
 			visited[i]=false;
-		Stack stack = new Stack();
+		}
+		Stack<Integer> stack = new Stack<Integer>();
 		stack.push(s);
 		visited[s]=true;
-		System.out.println(s);
-		while(!stack.empty()){
-			for(int v : adjListArray[s]) {
-				if(!visited[v]) {
-					stack.push(v);
-					visited[v]=true;
-					s=v;
-					System.out.println(s);
-					deadEnd=false;
-					break;
+		while(!stack.isEmpty()) {
+			s = stack.pop();
+			System.out.println(s);
+			
+			for(int i : adjListArray[s]) {
+				if(!visited[i]) {
+					visited[i]=true;
+					stack.push(i);
 				}
-				if(deadEnd) {
-					s=(int)stack.pop();
-				}
-			}
-			deadEnd=true;
+			}			
 		}
 	}
 	public static void main(String [] args) {
