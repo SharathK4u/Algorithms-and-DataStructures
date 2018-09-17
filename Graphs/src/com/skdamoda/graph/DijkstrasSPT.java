@@ -20,7 +20,7 @@ public class DijkstrasSPT {
 		graph.addEdge( 3, 5, 5);
 		graph.addEdge( 4, 5, 3);
 		graph.printGraph();
-		List<SpanningTree> spt = graph.shortestPath(0);
+		List<ShortestPath> spt = graph.shortestPath(0);
 		for(int i=0;i<v;i++) {
 			System.out.println(spt.get(i));
 		}
@@ -36,23 +36,23 @@ public class DijkstrasSPT {
 		}
 	} 
 	
-	static class SpanningTree implements Comparable{
+	static class ShortestPath implements Comparable{
 		int vertex;
 		int previousNode;
 		int distance;
-		SpanningTree(int vertex,int previousNode, int distance){
+		ShortestPath(int vertex,int previousNode, int distance){
 			this.vertex=vertex;
 			this.previousNode=previousNode;
 			this.distance=distance;
 		}
 		@Override
 		public int compareTo(Object arg0) {
-			SpanningTree spt1=(SpanningTree)arg0;
+			ShortestPath spt1=(ShortestPath)arg0;
 			return this.distance-spt1.distance;
 		}
 		@Override
 		public boolean equals(Object t) {
-			return this.vertex==((SpanningTree)t).vertex;
+			return this.vertex==((ShortestPath)t).vertex;
 		}
 		@Override
 		public String toString() {
@@ -88,24 +88,24 @@ public class DijkstrasSPT {
 				}
 			}
 			
-			List<SpanningTree> shortestPath(int sourceVertex) {
+			List<ShortestPath> shortestPath(int sourceVertex) {
 				//List of spanning tree which captures Node, Previous Node and Distance
-				List<SpanningTree> spt = new ArrayList<SpanningTree>(v);
+				List<ShortestPath> spt = new ArrayList<ShortestPath>(v);
 				//List of visited nodes
 				boolean visited [] = new boolean [v];
 				//Initializing all distance to infinity except source
 				for(int i=0;i<v;i++) {
-					SpanningTree s = new SpanningTree(i, 0, Integer.MAX_VALUE);
+					ShortestPath s = new ShortestPath(i, 0, Integer.MAX_VALUE);
 					spt.add(i, s);
 				}
 				spt.get(sourceVertex).distance=0;
 				
 				//Initializing Priority Queue to iterate
-				PriorityQueue<SpanningTree> queue = new PriorityQueue<SpanningTree>(v);
+				PriorityQueue<ShortestPath> queue = new PriorityQueue<ShortestPath>(v);
 				queue.add(spt.get(sourceVertex));
 				//Iterating through priority queue for all the nodes.
 				while(!queue.isEmpty()) {
-					SpanningTree currentSPT = queue.poll();
+					ShortestPath currentSPT = queue.poll();
 					int currentVertex=currentSPT.vertex;
 					LinkedList<Edge> currentAdjList= adjListArray[currentVertex];
 					for(Edge e:currentAdjList) {
