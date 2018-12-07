@@ -41,5 +41,4 @@ public class MergeSorting {
 			arr[start++]=sortArr[i];
 		}
 	}
-	
 }
