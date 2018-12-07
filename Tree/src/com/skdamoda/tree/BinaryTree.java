@@ -1,18 +1,20 @@
 package com.skdamoda.tree;
 import java.io.*;
 
-class Node{
-    int key;
-    Node left,right;
-    
-    Node(int key){
-        this.key=key;
-        left=right=null;
-    }
-}
+public class BinaryTree{
 
-class BinaryTree{
-    Node root;
+	class Node{
+	    int key;
+	    Node left,right;
+	    
+	    Node(int key){
+	        this.key=key;
+	        left=right=null;
+	    }
+	}
+
+	
+	Node root;
     
     BinaryTree(){
         root=null;
